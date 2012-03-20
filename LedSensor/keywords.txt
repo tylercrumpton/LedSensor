@@ -1,0 +1,8 @@
+LedSensor	KEYWORD1
+calibrate	KEYWORD2
+read	KEYWORD2
+readCalibrated	KEYWORD2
+setMin	KEYWORD2
+setMax	KEYWORD2
+getMin	KEYWORD2
+getMax	KEYWORD2
