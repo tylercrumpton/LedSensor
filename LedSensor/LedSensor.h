@@ -2,10 +2,11 @@
   LedSensor.h - Library for using an LED as a light sensor.
   Copyright 2012 Tyler Crumpton.
   This library is licensed under a GPLv3 License (see COPYING).
+  Source at: https://github.com/tac0010/LED-Sensor-Library
   
   (Based on http://arduino.cc/playground/Learning/LEDSensor)
   
-  March 19, 2012 - v0.1: Initial release. 
+  March 25, 2012 - v0.2: Using actual timing instead of for-loop. 
 */
 
 #ifndef LedSensor_h
