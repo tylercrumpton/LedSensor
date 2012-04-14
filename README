@@ -1,0 +1,103 @@
+LedSensor - Library for using an LED as a light sensor.
+
+--- Copyright ---
+Copyright 2012 Tyler Crumpton.
+This library is licensed under a GPLv3 License (see COPYING).
+Source at: https://github.com/tac0010/LED-Sensor-Library
+(Based on http://arduino.cc/playground/Learning/LEDSensor)
+
+--- Release Information ---
+April 14, 2012 - v0.3: Added selectable timing range.
+March 25, 2012 - v0.2: Using actual timing instead of for-loop.
+March 19, 2012 - v0.1: Initial release.
+
+--- Description ---
+LedSensor allows you to use a regular LED as a light sensor, by 
+taking advantage of some pretty cool LED phenomena. Basically,
+LEDs have a small amount of capacitance that can be charge up, 
+and the discharge rate is proportional to the amount of light
+reaching the LED. This rate can be measured in order to determine
+the intensity of light shining on the LED. Different LEDs have
+different responses to different wavelengths of light, where 
+usually the best response is achieved by measuring light of the
+same wavelength as the LED produces.
+
+Using an infrared (IR) LED, one can detect whether an object is 
+white or black, making it quite useful for line following and
+detection.
+
+--- Usage ---
+The hardware circuit to use with LedSensor is relatively simple.
+First, connect the anode(+) side of the LED to one of the 
+Arduino's digital or analog pins. Then place a 100ohm (or similar)
+resistor between the LED's cathode(-) and another digital or 
+analog pin.
+
+To initialize the sensor, one of the constructors must be called
+once at the beginning of your code:
+
+    LedSensor(int pinP, int pinN);
+    LedSensor(int pinP, int pinN, unsigned long timeout);
+    LedSensor(int pinP, int pinN, unsigned long timeout, boolean resolution);
+	
+	pinP: The Arduino pin to which the LED's anode(+) is connected.
+	pinN: The Arduino pin to which the LED's cathode(-) is connected.
+	timeout: Maximum time to wait for the sensor to register a measurement.
+	resolution: Choose between measuring milliseconds and microseconds.
+			    (Options: MILLI or MICRO)
+				
+After the sensor has been initialized, you can start reading the sensors 
+and make adjustments using the following functions:
+
+void LedSensor::calibrate()
+  Reads the sensor ten times and finds the minimum and maximum values over the ten
+  readings. The max and min are used in order to use readCalibrated(), and
+  calibrate() should be run multiple times in order to get the full range of
+  values.
+
+unsigned int LedSensor::read()
+  Reads the raw sensor data in terms of milliseconds/microseconds (depending on the
+  set resolution).
+
+unsigned int LedSensor::readCalibrated()
+  Reads the calibrated sensor data as a value between 0 and 1000 (regardless of
+  resolution). Requires that calibrate() has been run, or max and min values
+  have been manually set.
+
+void LedSensor::setMin(unsigned int minValue)
+  Manually sets the minimum sensor value in terms of milliseconds/microseconds
+  (depending on the set resolution).
+
+void LedSensor::setMax(unsigned int maxValue)
+  Manually sets the maximum sensor value in terms of milliseconds/microseconds
+  (depending on the set resolution).
+
+void LedSensor::setResolution(boolean resolution)
+  Set the resolution of the sensor to MILLI (milliseconds) or MICRO (microsec).
+  If doing white/black line detection, it is a good idea to use MICRO, but
+  if searching for objects, it is usually better to use MILLI.
+
+unsigned int LedSensor::getMin()
+  Returns the minimum sensor value in terms of milliseconds/microseconds
+  (depending on the set resolution).
+
+unsigned int LedSensor::getMax()
+  Returns the minimum sensor value in terms of milliseconds/microseconds
+  (depending on the set resolution).
+
+boolean LedSensor::getResolution()
+  Returns the currently set resolution of the sensor (MILLI or MICRO).
+
+--- Limitations ---
+Using LEDs as sensors can be a little slow compared to using phototransistors
+or other forms of light detection. This is mainly a proof of concept, but it
+can be useful when slow measurements are acceptable.
+
+--- Contribution ---
+I hope you can find this work useful, and if you would like to contribute
+to the developer of this utility, you may send any amount of Bitcoins to this
+address: 
+
+		1NwgD6TdbamuQisdWfsoe4RfGLLqgZWDhF
+		
+Any amount is appreciated! (more info on Bitcoins at http://bitcoin.org/ )
